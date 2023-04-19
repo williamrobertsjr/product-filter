@@ -20,6 +20,7 @@ const toolSelect = () => {
   }
   if(selectedToolType.includes('inserts')) {
     showTable()
+    subFormContainer.innerHTML = ' '
   } else {
     document.getElementById('filter-table-container').innerHTML = " ";
   }
@@ -29,6 +30,7 @@ const toolSelect = () => {
 let subTypeSelect = document.getElementsByClassName('sub-type-select')
 let selectedSub = subTypeSelect.value
 const dimensionSelect = () => { 
+  console.log('here we go')
   let filters = document.querySelectorAll(".filters")
   for (select of subTypeSelect) {
     selectedSub = select.value
@@ -66,27 +68,23 @@ const dimensionSelect = () => {
 }
 
 
-let filtersHere = document.getElementById('filtersHere')
+let subFormContainer = document.getElementById('sub-form-container')
 let toolTypeForm = document.getElementById('tool-type-form')
-
 
 toolTypeForm.addEventListener('change', function(e) {
   
   e.preventDefault()
   const formData = new FormData(this)
 
-  fetch('/wp-content/themes/storefront-child/products/filter-content.php', {
+  fetch('/wp-content/themes/storefront-child/products/filter-sub-tool-select.php', {
     method: 'POST',
     body: formData
   }).then(function (response) {
     return response.text()
   }).then(function (text) {
-    filtersHere.innerHTML = text
-    let dimensionsScript = document.createElement('script')
-    dimensionsScript.src = '/wp-content/themes/storefront-child/products/dimensions-filter-v2.5.js'
-    document.getElementById('filter-container').appendChild(dimensionsScript)
+    subFormContainer.innerHTML = text
+    // console.log(text)
     toolSelect()
-    // dimensionSelect()
   }).catch(function (error) {
     console.error(error)
   })
@@ -94,10 +92,25 @@ toolTypeForm.addEventListener('change', function(e) {
 })
 
 
+let toolSubTypeSelect = document.getElementById('tool-sub-form')
+if(toolSubTypeSelect) {
+  console.log(toolSubTypeSelect)
+  toolSubTypeSelect.addEventListener('change', function(e) {
+    e.preventDefault()
+    console.log('changed the sub type')
+  })
+}
+
+
+
+
+
+
+
 let resultsContainer = document.getElementById('filter-table-container')
 
 function showTable() {
-  // console.log('Button was clicked')
+  console.log('Button was clicked')
   let xhr = new XMLHttpRequest();
   // OPEN - type, url/file, async (t/f)
   switch (selectedToolType) {
@@ -122,6 +135,7 @@ function showTable() {
   
    
   xhr.onload = function(){
+    
     if(this.status == 200){
       // console.log(this.responseText)
       resultsContainer.innerHTML = this.responseText
@@ -149,18 +163,46 @@ function showTable() {
 
 }
 
+let millAjax = document.getElementById('milling-dimensions-ajax')
+
+
+document.addEventListener('change', event => {
+  const target = event.target
+  // console.log(target)
+  if(target.classList.contains('sub-type-select')) {
+    // console.log('button was clicked!!!')
+    
+    let toolSubForm = document.getElementById('tool-sub-form')
+    
+    const formData = new FormData(toolSubForm)
+    
+    //  instaed of posting to filter_queries maybe this should go to /product-filter ?
+      fetch('/wp-content/themes/storefront-child/products/filter-content.php', {
+        method: 'post',
+        body: formData
+      }).then(function (response) {
+        return response.text()
+      }).then(function (text) {
+        // console.log(text)
+        // millAjax.innerHTML = text
+        console.log(formData.get('tool-sub-categories'))
+      }).catch(function (error) {
+        console.error(error)
+      })
+
+    }
+  
+})
 
 
 
 
-
-
-// let millingForm = document.getElementById('milling-dimensions')
-
+// var millingForm = document.getElementById('milling-dimensions')
 // if(millingForm) {
-//   console.log(millingForm)
+ 
 //   millingForm.addEventListener('submit', function(e) {
 //     // prevent form submit from reloading page
+//     console.log("here it is")
 //     e.preventDefault()
     
 //     // create new FormData object based on "this" (millingForm) form
@@ -186,11 +228,14 @@ function showTable() {
   
 //   })
 // }
-// let millingSubForm = document.getElementById('milling-sub-form')
+
+// let millAjax = document.getElementById('milling-dimensions-ajax')
+// var millingSubForm = document.getElementById('milling-sub-form')
+
 // if(millingSubForm) {
-//   console.log(millingSubForm)
 //   millingSubForm.addEventListener('change', function(e) {
-//     const formData = new FormData(this)
+//   const formData = new FormData(this)
+//   console.log('inside milling SubForm event listener')
 //   //  instaed of posting to filter_queries maybe this should go to /product-filter ?
 //     fetch('/wp-content/themes/storefront-child/products/filter-content.php', {
 //       method: 'post',
@@ -198,12 +243,74 @@ function showTable() {
 //     }).then(function (response) {
 //       return response.text()
 //     }).then(function (text) {
-//       // resultsContainer.innerHTML = formData.get('tool-type')
-//       let milliDia = document.getElementById('milling-dia')
-//       // milliDia.innerHTML = text
-//     //   resultsContainer.innerHTML = text
+//       console.log(text)
+//       millAjax.innerHTML = text
+//       console.log(formData.get('milling-sub-categories'))
+//       toolSelect()
 //       dimensionSelect()
-     
+//       let script = document.createElement('script')
+//       script.src = ''
+//     }).catch(function (error) {
+//       console.error(error)
+//     })
+//   })
+// }
+
+
+
+// var threadingSubForm = document.getElementById('threading-sub-form')
+// if(threadingSubForm) {
+//   threadingSubForm.addEventListener('change', function(e) {
+//   const formData = new FormData(this)
+  
+//   console.log('threading sub form change!')
+//   //  instaed of posting to filter_queries maybe this should go to /product-filter ?
+//     fetch('/wp-content/themes/storefront-child/products/filter-content.php', {
+//       method: 'post',
+//       body: formData
+//     }).then(function (response) {
+//       return response.text()
+//     }).then(function (text) {
+//       console.log(text)
+//       dimensionSelect()
+//     }).catch(function (error) {
+//       console.error(error)
+//     })
+//   })
+// }
+// var holemakingSubForm = document.getElementById('holemaking-sub-form')
+// if(holemakingSubForm) {
+//   holemakingSubForm.addEventListener('change', function(e) {
+//   const formData = new FormData(this)
+//   // console.log('this is changeing')
+//   //  instaed of posting to filter_queries maybe this should go to /product-filter ?
+//     fetch('/wp-content/themes/storefront-child/products/filter-content.php', {
+//       method: 'post',
+//       body: formData
+//     }).then(function (response) {
+//       return response.text()
+//     }).then(function (text) {
+//       // console.log(text)
+//       dimensionSelect()
+//     }).catch(function (error) {
+//       console.error(error)
+//     })
+//   })
+// }
+// var specialtySubForm = document.getElementById('specialty-sub-form')
+// if(specialtySubForm) {
+//   specialtySubForm.addEventListener('change', function(e) {
+//   const formData = new FormData(this)
+//   console.log('this is changeing')
+//   //  instaed of posting to filter_queries maybe this should go to /product-filter ?
+//     fetch('/wp-content/themes/storefront-child/products/filter-content.php', {
+//       method: 'post',
+//       body: formData
+//     }).then(function (response) {
+//       return response.text()
+//     }).then(function (text) {
+//       console.log(text)
+//       dimensionSelect()
 //     }).catch(function (error) {
 //       console.error(error)
 //     })

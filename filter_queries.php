@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_SESSION['milling-sub-categories'])){
     $millingSub = $_SESSION['milling-sub-categories'];
 }
@@ -11,7 +12,6 @@ if (isset($_SESSION['threading-sub-categories'])){
 if (isset($_SESSION['specialty-sub-categories'])){
     $specialtySub = $_SESSION['specialty-sub-categories'];
 }
-
 // $holemakingSub = $_SESSION['holemaking-sub-categories'];
 // $threadingSub = $_SESSION['threading-sub-categories'];
 // $specialtySub = $_SESSION['specialty-sub-categories'];
@@ -45,7 +45,7 @@ function tool_sub($tool_type) {
 }
 // echo "Tool Type carried to filter_queries: " . $tool_type . "<br>";
 
-if ($tool_type == 'milling') {
+if ($tool_type == 'milling' && isset($millingSub)) {
     $sub_type = $millingSub;
     // echo 'here it is' . $tool_type;
  } else if ($tool_type == 'holemaking' && isset($holemakingSub) ) {
@@ -72,6 +72,7 @@ function diameter_filter($tool_type, $sub_type) {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $dia_val = $row['cut_dia_in_display'];
             if($dia_val != "") {
@@ -99,6 +100,7 @@ function loc_filter($tool_type, $sub_type) {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $loc_val = $row['loc_in_display'];
             if($loc_val != "") {
@@ -126,6 +128,7 @@ function oal_filter($tool_type, $sub_type) {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $oal_val = $row['oal_in_display'];
             if($oal_val != "") {
@@ -151,6 +154,7 @@ function rad_filter($tool_type, $sub_type) {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $rad_val = $row['radius_in_display'];
             if($rad_val != "") {
@@ -177,6 +181,7 @@ function flute_filter($tool_type, $sub_type) {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $flute_val = $row['flutes'];
             if($flute_val != "") {
@@ -204,6 +209,7 @@ function coating_filter($tool_type, $sub_type) {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $coating_val = $row['coating'];
             if($coating_val != "") {
@@ -229,6 +235,7 @@ function angle_filter($tool_type) {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $angle_val = $row['angle_display'];
             if($angle_val != "") {
@@ -254,6 +261,7 @@ function thread_size_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $thread_size_val = $row['taps_thread_size'];
             if($thread_size_val != "") {
@@ -279,6 +287,7 @@ function thread_limit_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $thread_limit_val = $row['taps_thread_limit'];
             if($thread_limit_val != "") {
@@ -304,6 +313,7 @@ function thread_chamfer_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $thread_chamfer_val = $row['taps_thread_length'];
             if($thread_chamfer_val != "") {
@@ -329,6 +339,7 @@ function class_fit_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $class_fit_val = $row['taps_class_of_fit'];
             if($class_fit_val != "") {
@@ -354,6 +365,7 @@ function thread_cut_dia_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $thread_cut_dia_val = $row['taps_dia'];
             if($thread_cut_dia_val != "") {
@@ -379,6 +391,7 @@ function od_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $thread_od_val = $row['taps_od1'];
             if($thread_od_val != "") {
@@ -405,6 +418,7 @@ function shape_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $shape_val = $row['sub_sub_type'];
             if($shape_val != "") {
@@ -430,6 +444,7 @@ function shank_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $shank_val = $row['shank_dia_in_display'];
             if($shank_val != "") {
@@ -455,6 +470,7 @@ function thickness_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $thickness_val = $row['thickness'];
             if($thickness_val != "") {
@@ -480,6 +496,7 @@ function width_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $width_val = $row['width'];
             if($width_val != "") {
@@ -506,6 +523,7 @@ function designation_filter() {
 
     if ($result->num_rows > 0) {
         $arr = [];
+        echo "<option value='default'>Select</option>";
         while($row = $result->fetch_assoc()) {
             $designation_val = $row['tool'];
             if($designation_val != "") {

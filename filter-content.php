@@ -1,10 +1,11 @@
 <?php 
 session_start();
+// $tool_type = $_POST['tool-type'];
+
 if (isset($_POST['tool-type'])) {
     $_SESSION['tool-type'] = $_POST['tool-type'];
 }
 $tool_type = $_SESSION['tool-type'];
-
 if(isset($_POST['milling-sub-categories'])) {
     $_SESSION['milling-sub-categories'] = $_POST['milling-sub-categories'];
 } 
@@ -33,14 +34,9 @@ if(isset($_POST['specialty-sub-categories'])) {
 if (isset($_SESSION['specialty-sub-categories'])){
     $specialtySub = $_SESSION['specialty-sub-categories'];
 }
-
+// include 'session-variables.php';
 include 'filter_queries.php'; 
-
-
-
 ?>
-
-
 
 
 
@@ -97,15 +93,14 @@ include 'filter_queries.php';
             </div>
         </div>
     
-
-        
+        <div id="milling-dimensions-ajax"></div>
 
     <form id="milling-dimensions" method="post">
         <div class="filters hide" data-tool-type="milling" data-filter="Ball Nose Square Corner Radius Corner Chamfer Rougher Drill/Mill">
             
             <label for="milling-dia-select">Diameter</label>
             <select name="milling-dia" id="milling-dia">
-                <option value="default">Select</option>
+                
                 <?php diameter_filter($tool_type, $sub_type); ?>
             </select>
         </div>
@@ -116,14 +111,12 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="milling-loc-min">Min</label>
                     <select name="milling-loc-min" id="milling-loc-min">
-                        <option value="default">Select</option>
                         <?php loc_filter($tool_type, $sub_type); ?>  
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="milling-loc-max">Max</label>
                     <select name="milling-loc-max" id="milling-loc-max">
-                        <option value="default">Select</option>
                         <?php loc_filter($tool_type, $sub_type); ?> 
                     </select>
                 </div>
@@ -137,14 +130,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="milling-oal-min">Min</label>
                     <select name="milling-oal-min" id="milling-oal-min">
-                        <option value="default">Select</option>
+                        
                         <?php oal_filter($tool_type, $sub_type); ?> 
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="milling-oal-max">Max</label>
                     <select name="milling-oal-max" id="milling-oal-max">
-                        <option value="default">Select</option>
+                        
                         <?php oal_filter($tool_type, $sub_type); ?> 
                     </select>
                 </div>
@@ -158,14 +151,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="milling-radius-min">Min</label>
                     <select name="milling-radius-min" id="milling-radius-min">
-                        <option value="default">Select</option>
+                        
                         <?php rad_filter($tool_type, $sub_type); ?> 
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="milling-radius-max">Max</label>
                     <select name="milling-radius-max" id="milling-radius-max">
-                        <option value="default">Select</option>
+                        
                         <?php rad_filter($tool_type, $sub_type); ?> 
                     </select>
                 </div>
@@ -176,7 +169,7 @@ include 'filter_queries.php';
             <label for="milling-flutes">Number of Flutes</label>
             <div class="range-div">
                 <select name="milling-flutes" id="milling-flutes">
-                    <option value="default">Select</option>
+                    
                     <?php flute_filter($tool_type, $sub_type); ?> 
                 </select>
                 
@@ -186,7 +179,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="milling"  data-filter="Ball Nose Square Corner Radius Corner Chamfer Rougher Drill/Mill">
             <label for="milling-coating">Coating</label>
             <select name="milling-coating" id="milling-coating">
-                <option value="default">Select</option>
+                
                 <?php coating_filter($tool_type, $sub_type); ?> 
             </select>
         </div>
@@ -250,7 +243,7 @@ include 'filter_queries.php';
             <div class="filters hide" data-tool-type="holemaking">
                 <label for="holemaking-dia">Diameter</label>
                 <select name="holemaking-dia" id="holemaking-dia" data-filter="Drill Boring Bar Reamers Countersinks">
-                    <option value="default">Select</option>
+                    
                     <?php diameter_filter($tool_type, $sub_type); ?>
                 </select>
                 
@@ -261,14 +254,14 @@ include 'filter_queries.php';
                     <div class="min-select">
                         <label for="holemaking-loc-min">Min</label>
                         <select name="holemaking-loc-min" id="holemaking-loc-min">
-                            <option value="default">Select</option>
+                            
                             <?php loc_filter($tool_type, $sub_type); ?>
                         </select>
                     </div>
                     <div class="max-select">
                     <label for="holemaking-loc-max">Max</label>
                         <select name="holemaking-loc-max" id="holemaking-loc-max">
-                            <option value="default">Select</option>
+                            
                             <?php loc_filter($tool_type, $sub_type); ?>
                         </select>
                     </div>
@@ -280,14 +273,14 @@ include 'filter_queries.php';
                     <div class="min-select">
                         <label for="holemaking-oal-min">Min</label>
                         <select name="holemaking-oal-min" id="holemaking-oal-min">
-                            <option value="default">Select</option>
+                            
                             <?php oal_filter($tool_type, $sub_type); ?>
                         </select>
                     </div>
                     <div class="max-select">
                     <label for="holemaking-oal-max">Max</label>
                         <select name="holemaking-oal-max" id="holemaking-oal-max">
-                            <option value="default">Select</option>
+                            
                             <?php oal_filter($tool_type, $sub_type); ?>
                         </select>
                     </div>
@@ -296,7 +289,7 @@ include 'filter_queries.php';
             <div class="filters hide" data-tool-type="holemaking" data-filter="Drill">
                 <label for="holemaking-point">Point Angle</label>
                 <select name="holemaking-angle" id="holemaking-angle">
-                    <option value="default">Select</option>
+                    
                     <?php angle_filter($tool_type, $sub_type); ?>
                 </select>
             </div>
@@ -304,7 +297,7 @@ include 'filter_queries.php';
                 <label for="holemaking-flutes">Number of Flutes</label>
                 
                     <select name="holemaking-flutes" id="holemaking-flutes">
-                        <option value="default">Select</option>
+                        
                         <?php flute_filter($tool_type, $sub_type); ?>
                     </select>
                     
@@ -313,7 +306,7 @@ include 'filter_queries.php';
             <div class="filters hide" data-tool-type="holemaking" data-filter="Drill Boring Bar Reamers Countersinks">
                 <label for="holemaking-coolant">Coolant Through</label>
                 <select name="holemaking-coolant" id="holemaking-coolant">
-                    <option value="default">Select</option>
+                    
                     <option value="1">Yes</option>
                     <option value="2">No</option>
                 </select>
@@ -321,7 +314,7 @@ include 'filter_queries.php';
             <div class="filters hide" data-tool-type="holemaking" data-filter="Drill Boring Bar Reamers Countersinks">
                 <label for="holemaking-coating">Coating</label>
                 <select name="holemaking-coating" id="holemaking-coating">
-                    <option value="default">Select</option>
+                    
                     <?php coating_filter($tool_type, $sub_type); ?>
                 </select>
             </div>
@@ -386,7 +379,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="threading" data-filter="Hand Tap Spiral Point Spiral Flute Form Thread Mill Die Specialty Gage">
             <label for="threading-measure">Inch or Metric</label>
             <select name="threading-measure" id="threading-measure">
-                <option value="default">Select</option>
+                
                 <option value="1">Inch</option>
                 <option value="2">Metric</option>
             </select>
@@ -395,7 +388,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="threading" data-filter="Hand Tap Spiral Point Spiral Flute Form Die">
             <label for="thread-material">Tool Material</label>
             <select name="thread-material" id="thread-material">
-                <option value="default">Select</option>
+                
                 <option value="hss">HSS</option>
                 <option value="carbide">Carbide</option>
             </select>
@@ -404,7 +397,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="threading" data-filter="Hand Tap Spiral Point Spiral Flute Form Thread Mill Die Specialty Gage">
             <label for="thread-size">Thread Size</label>
             <select name="thread-size" id="thread-size">
-                <option value="default">Select</option>
+                
                 <?php thread_size_filter(); ?>
             </select>
         </div>
@@ -415,14 +408,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="thread-limit-min">Min</label>
                     <select name="thread-limit-min" id="thread-limit-min">
-                        <option value="default">Select</option>
+                        
                         <?php thread_limit_filter(); ?>
                     </select>
                 </div>
                 <div class="max-select">
                     <label for="thread-limit-max">Max</label>
                     <select name="thread-limit-max" id="thread-limit-max">
-                        <option value="default">Select</option>
+                        
                         <?php thread_limit_filter(); ?>
                     </select>
                 </div>
@@ -432,7 +425,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="threading" data-filter="Hand Tap Spiral Point Spiral Flute Form Gage">
             <label for="thead-fit">Class of Fit</label>
             <select name="thread-fit" id="thread-fit">
-                <option value="default">Select</option>
+                
                 <?php class_fit_filter(); ?>
             </select>
         </div>
@@ -443,14 +436,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="thread-cut-dia-min">Min</label>
                     <select name="thread-cut-dia-min" id="thread-cut-dia-min">
-                        <option value="default">Select</option>
+                        
                         <?php thread_cut_dia_filter(); ?>
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="thread-cut-dia-max">Max</label>
                     <select name="thread-cut-dia-max" id="thread-cut-dia-max">
-                        <option value="default">Select</option>
+                        
                         <?php thread_cut_dia_filter(); ?>
                     </select>
                 </div>
@@ -463,14 +456,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="thread-chamfer-min">Min</label>
                     <select name="thread-chamfer-min" id="thread-chamfer-min">
-                        <option value="default">Select</option>
+                        
                         <?php thread_chamfer_filter(); ?>
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="thread-chamfer-max">Max</label>
                     <select name="thread-chamfer-max" id="thread-chamfer-max">
-                        <option value="default">Select</option>
+                        
                         <?php thread_chamfer_filter(); ?>
                     </select>
                 </div>
@@ -481,7 +474,7 @@ include 'filter_queries.php';
             <label for="threading-flutes">Number of Flutes</label>
             <div class="range-div">
                 <select name="threading-flutes" id="threading-flutes">
-                    <option value="default">Select</option>
+                    
                     <?php flute_filter($tool_type, $sub_type); ?>
                 </select>        
             </div>
@@ -490,7 +483,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="threading" data-filter="Hand Tap Spiral Point Spiral Flute Form">
             <label for="threading-direction">Thread Direction</label>
             <select name="thread-direction" id="thread-direction">
-                <option value="default">Select</option>
+                
                 <option value="RH">RH</option>
                 <option value="LH">LH</option>
             </select>
@@ -499,7 +492,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="threading">
             <label for="threading-standard">Thread Standard</label>
             <select name="threading-standard" id="threading-standard">
-                <option value="default">Select</option>
+                
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -511,7 +504,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="threading" data-filter="Thread Mill">
             <label for="threading-coolant">Coolant Through</label>
             <select name="threading-coolant" id="threading-coolant">
-                <option value="default">Select</option>
+                
                 <option value="1">Yes</option>
                 <option value="2">No</option>
             </select>
@@ -520,7 +513,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="threading" data-filter="Die">
             <label for="threading-od">Outer Dimensions</label>
             <select name="threading-od" id="threading-od">
-                <option value="default">Select</option>
+                
                 <?php od_filter(); ?>
             </select>
         </div>
@@ -528,7 +521,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="threading" data-filter="Hand Tap Spiral Point Spiral Flute Form Thread Mill">
             <label for="threading-coating">Coating</label>
             <select name="threading-coating" id="threading-coating">
-                <option value="default">Select</option>
+                
                 <?php coating_filter($tool_type, $sub_type); ?>
             </select>
         </div>
@@ -597,7 +590,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="specialty" data-filter="CarbideBlanks">
             <label for="blanks-sub">Blanks Sub Type</label>
             <select name="blanks-sub" id="blanks-sub">
-                <option value="default">Select</option>
+                
                     <option value="round">Round</option>
                     <option value="non-round">Non-Round</option>
                     <option value="tips">Tips</option>
@@ -606,21 +599,21 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="specialty" data-filter="Burr">
             <label for="specialty-shape">Shape</label>
             <select name="specialty-shape" id="specialty-shape">
-                <option value="default">Select</option>
+                
                 <?php shape_filter(); ?>
             </select>   
         </div>
         <div class="filters hide" data-tool-type="specialty" data-filter="Burr">
             <label for="specialty-designation">Tool Designation</label>
             <select name="specialty-designation" id="specialty-designation">
-                <option value="default">Select</option>
+                
                 <?php designation_filter(); ?>
             </select>   
         </div>
         <div class="filters hide" data-tool-type="specialty" data-filter="Burr Router Engraving IDGrinding">
             <label for="specialty-dia">Diameter</label>
             <select name="specialty-dia" id="specialty-dia">
-                <option value="default">Select</option>
+                
                 <?php diameter_filter($tool_type, $sub_type); ?>
             </select>  
         </div>
@@ -630,14 +623,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="specialty-loc-min">Min</label>
                     <select name="specialty-loc-min" id="specialty-loc-min">
-                        <option value="default">Select</option>
+                        
                         <?php loc_filter($tool_type, $sub_type); ?>
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="specialty-loc-max">Max</label>
                     <select name="specialty-loc-max" id="specialty-loc-max">
-                        <option value="default">Select</option>
+                        
                         <?php loc_filter($tool_type, $sub_type); ?>
                     </select>
                 </div>
@@ -649,14 +642,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="specialty-shank-min">Min</label>
                     <select name="specialty-shank-min" id="specialty-shank-min">
-                        <option value="default">Select</option>
+                        
                         <?php shank_filter(); ?>
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="specialty-shank-max">Max</label>
                     <select name="specialty-shank-max" id="specialty-shank-max">
-                        <option value="default">Select</option>
+                        
                         <?php shank_filter(); ?>
                     </select>
                 </div>
@@ -668,14 +661,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="specialty-oal-min">Min</label>
                     <select name="specialty-oal-min" id="specialty-oal-min">
-                        <option value="default">Select</option>
+                        
                         <?php oal_filter($tool_type, $sub_type); ?>
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="specialty-oal-max">Max</label>
                     <select name="specialty-oal-max" id="specialty-oal-max">
-                        <option value="default">Select</option>
+                        
                         <?php oal_filter($tool_type, $sub_type); ?>
                     </select>
                 </div>
@@ -687,14 +680,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="specialty-thickness-min">Min</label>
                     <select name="specialty-thickness-min" id="specialty-thickness-min">
-                        <option value="default">Select</option>
+                        
                         <?php thickness_filter(); ?>
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="specialty-thickness-max">Max</label>
                     <select name="specialty-thickness-max" id="specialty-thickness-max">
-                        <option value="default">Select</option>
+                        
                         <?php thickness_filter(); ?>
                     </select>
                 </div>
@@ -706,14 +699,14 @@ include 'filter_queries.php';
                 <div class="min-select">
                     <label for="specialty-width-min">Min</label>
                     <select name="specialty-width-min" id="specialty-width-min">
-                        <option value="default">Select</option>
+                        
                         <?php width_filter(); ?>
                     </select>
                 </div>
                 <div class="max-select">
                 <label for="specialty-width-max">Max</label>
                     <select name="specialty-width-max" id="specialty-width-max">
-                        <option value="default">Select</option>
+                        
                         <?php width_filter(); ?>
                     </select>
                 </div>
@@ -722,7 +715,7 @@ include 'filter_queries.php';
         <div class="filters hide" data-tool-type="specialty">
             <label for="specialty-coating">Coating</label>
             <select name="specialty-coating" id="specialty-coating">
-                <option value="default">Select</option>
+                
                 <?php coating_filter($tool_type, $sub_type); ?>
             </select>
         </div>

@@ -2,10 +2,10 @@
 // Template Name: Product Filter V2
 get_header();
 
-
-include 'db_connection.php';
 // include 'filter_queries.php'; 
 session_start();
+include 'db_connection.php';
+// include ('filter_queries.php'); 
 ?>
 
 <!-- Bootstrap Table Stylesheets -->
@@ -24,44 +24,24 @@ session_start();
 
 
 <section id="filter-container">
-<div class="filter-list">
-    <div id="filter-options">
-        <div id="tool-type-filters">   
-            <form id="tool-type-form">
-                <label for="tool-type">Tool Type</label>
-                <select name="tool-type" id="tool-type">
-                    <option value="default">Choose one</option>
-                    <option value="milling" data-filter="milling">Milling</option>
-                    <option value="holemaking" data-filter="holemaking">Holemaking</option>
-                    <option value="threading" data-filter="threading">Threading</option>
-                    <option value="specialty" data-filter="specialty">Specialty</option>
-                    <option value="inserts" data-filter="inserts">Inserts</option>
-                </select> 
-                <!-- <input type="submit"> -->
-            </form>
-        </div>
+    <div class="filter-list">
         
-        <div id="filtersHere">
+            <div id="filter-options">
+                <div id="tool-type-filters">   
+                    <?php include('filter-tool-select.php');?>
+                </div>
+            
+                <div id="sub-form-container"></div>
 
+                <div id="dimensions-container"></div>
+            
+            </div> 
         </div>
-        <?php //include 'filter-content.php' ; ?>
-    </div>
-        
-    </div>
-
+    <?php //get_template_part('template-parts/filter', 'tool'); ?>
+    
     <div class="filter-table">
         <section id ="filter-results">
-            <div id="filter-table-container">
-                <!-- <h3>Search Results</h3> -->
-                
-                <?php
-                // include('db_new.php');
-                // include('product-filter-table.php');
-                // include('inserts-table.php');
-                
-                ?>
-                
-            </div>     
+            <div id="filter-table-container"></div>     
             <div id="hello"></div>
         </section>
     </div>
@@ -69,14 +49,8 @@ session_start();
 </section>
 
 
-<!-- Bootstrap Table Scripts -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.js"></script> -->
-<!-- noUiSlider -->
-<!-- <script src="/wp-content/themes/storefront-child/noUiSlider/nouislider.min.js" defer></script> -->    
 <script src="/wp-content/themes/storefront-child/products/product-filter.js"></script>
-<!-- <script src="/wp-content/themes/storefront-child/products/dimensions-filter-v1.5.js"></script> -->
+
 
 <?php get_footer() ; ?>
 
