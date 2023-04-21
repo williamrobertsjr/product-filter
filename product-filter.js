@@ -1,4 +1,4 @@
-let toolTypeSelect = document.getElementById("tool-type")
+let toolTypeSelect = document.getElementById("tool-type");
 let selectedToolType = toolTypeSelect.value
 
 let filters = document.querySelectorAll(".filters")
@@ -18,9 +18,9 @@ const toolSelect = () => {
       filter.style.display = 'none'
     }
   }
-  if(selectedToolType.includes('inserts')) {
-    showTable()
+  if(selectedToolType.includes('Inserts')) {
     subFormContainer.innerHTML = ' '
+    showTable()
   } else {
     document.getElementById('filter-table-container').innerHTML = " ";
   }
@@ -29,29 +29,29 @@ const toolSelect = () => {
 
 let subTypeSelect = document.getElementsByClassName('sub-type-select')
 let selectedSub = subTypeSelect.value
-const dimensionSelect = () => { 
-  console.log('here we go')
+const dimensionSelect = () => {
+  console.log('this is inside dimension select function')
   let filters = document.querySelectorAll(".filters")
   for (select of subTypeSelect) {
     selectedSub = select.value
     
     for (option of select) {
       let subTypeOption = option.classList
-      
-      let selectedSubType = select.getAttribute('data-tool-type')
-      
+      let selectedSubType = selectedToolType
+
       if (selectedSubType == selectedToolType) {
-        
+        console.log('made it inside if statement')
         for(filter of filters) {
           
           let selectedSubFilter = filter.getAttribute('data-filter')
           let selectedFilterClass = filter.classList
           
           if(typeof filter.dataset.filter !== "undefined" && selectedSubType == selectedToolType && filter.dataset.filter.includes(selectedSub)){
-          
+            
             filter.style.display = 'block'
           
           }else {
+            
             filter.style.display = 'none'
           }
         }
@@ -84,7 +84,8 @@ toolTypeForm.addEventListener('change', function(e) {
   }).then(function (text) {
     subFormContainer.innerHTML = text
     // console.log(text)
-    toolSelect()
+    // toolSelect()
+    dimensionsContainer.innerHTML = ' '
   }).catch(function (error) {
     console.error(error)
   })
@@ -114,20 +115,20 @@ function showTable() {
   let xhr = new XMLHttpRequest();
   // OPEN - type, url/file, async (t/f)
   switch (selectedToolType) {
-    case 'inserts':
+    case 'Inserts':
       xhr.open('GET', '/wp-content/themes/storefront-child/products/inserts-table.php', true);
       break;
-    case 'holemaking':
+    case 'Holemaking':
       xhr.open('GET', '/wp-content/themes/storefront-child/products/holemaking-table.php', true);
       break;
-    case 'threading':
+    case 'Threading':
       xhr.open('GET', '/wp-content/themes/storefront-child/products/threading-table.php', true);
       break;
-    case 'milling':
+    case 'Milling':
       xhr.open('GET', '/wp-content/themes/storefront-child/products/milling-table.php', true);
       break;
-    case 'specialty':
-      xhr.open('GET', '/wp-content/themes/storefront-child/products/spcialty-table.php', true);
+    case 'Specialty':
+      xhr.open('GET', '/wp-content/themes/storefront-child/products/specialty-table.php', true);
       break;
     default:
       console.log('Default Tool Type in showTable()');
@@ -163,31 +164,28 @@ function showTable() {
 
 }
 
-let millAjax = document.getElementById('milling-dimensions-ajax')
-
-
+let dimensionsContainer = document.getElementById('dimensions-container')
 document.addEventListener('change', event => {
   const target = event.target
-  // console.log(target)
+  
   if(target.classList.contains('sub-type-select')) {
-    // console.log('button was clicked!!!')
     
     let toolSubForm = document.getElementById('tool-sub-form')
     
     const formData = new FormData(toolSubForm)
-    
-    //  instaed of posting to filter_queries maybe this should go to /product-filter ?
+
       fetch('/wp-content/themes/storefront-child/products/filter-content.php', {
         method: 'post',
         body: formData
       }).then(function (response) {
         return response.text()
       }).then(function (text) {
-        // console.log(text)
-        // millAjax.innerHTML = text
-        console.log(formData.get('tool-sub-categories'))
+        dimensionsContainer.innerHTML = text
+        dimensionSelect()
       }).catch(function (error) {
         console.error(error)
+      }).finally( function() {
+        // dimensionSelect()
       })
 
     }
@@ -195,19 +193,26 @@ document.addEventListener('change', event => {
 })
 
 
+let millingForm = document.getElementById('milling-dimensions')
+if(millingForm) {
+  console.log(millingForm)
+}
+
+
+
 
 
 // var millingForm = document.getElementById('milling-dimensions')
 // if(millingForm) {
- 
+
 //   millingForm.addEventListener('submit', function(e) {
 //     // prevent form submit from reloading page
 //     console.log("here it is")
 //     e.preventDefault()
-    
+
 //     // create new FormData object based on "this" (millingForm) form
 //     const formData = new FormData(this)
-  
+
 //     fetch('/wp-content/themes/storefront-child/products/milling-table.php', {
 //       method: 'post',
 //       body: formData 
@@ -225,7 +230,7 @@ document.addEventListener('change', event => {
 //     }).catch(function (error) {
 //       console.error(error)
 //     })
-  
+
 //   })
 // }
 
@@ -262,7 +267,7 @@ document.addEventListener('change', event => {
 // if(threadingSubForm) {
 //   threadingSubForm.addEventListener('change', function(e) {
 //   const formData = new FormData(this)
-  
+
 //   console.log('threading sub form change!')
 //   //  instaed of posting to filter_queries maybe this should go to /product-filter ?
 //     fetch('/wp-content/themes/storefront-child/products/filter-content.php', {

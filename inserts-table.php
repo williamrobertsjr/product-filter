@@ -19,7 +19,7 @@ if ($result->num_rows > 0) {
             data-sort-reset="true"
             data-pagination="true"
             data-undefined-text="-"
-            data-page-size="10"
+            data-page-size="25"
             class="table-striped table-sm table-title">
         <thead>
             <tr>

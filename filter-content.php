@@ -1,18 +1,23 @@
 <?php 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+// session_start();
 // $tool_type = $_POST['tool-type'];
 
 if (isset($_POST['tool-type'])) {
     $_SESSION['tool-type'] = $_POST['tool-type'];
 }
 $tool_type = $_SESSION['tool-type'];
+$_SESSION['tool-sub-categories'] = $_POST['tool-sub-categories'];
+$sub_type = $_SESSION['tool-sub-categories'];
 if(isset($_POST['milling-sub-categories'])) {
     $_SESSION['milling-sub-categories'] = $_POST['milling-sub-categories'];
 } 
+
 if(isset($_SESSION['milling-sub-categories'])) {
     $millingSub = $_SESSION['milling-sub-categories'];
 }
-
 
 if(isset($_POST['holemaking-sub-categories'])) {
     $_SESSION['holemaking-sub-categories'] = $_POST['holemaking-sub-categories'];
@@ -80,17 +85,6 @@ include 'filter_queries.php';
                 </select>
             </div>
 
-
-            
-            <div class="filter-options hide" data-tool-type="milling">
-                
-                <form id="milling-sub-form">
-                    <label for="milling-sub-categories">Milling Sub Type</label>
-                    <select name="milling-sub-categories" id="milling-sub-categories" data-tool-type="milling" class="sub-type-select">
-                        <?php tool_sub($tool_type);?>        
-                    </select>
-                </form>
-            </div>
         </div>
     
         <div id="milling-dimensions-ajax"></div>
@@ -144,7 +138,7 @@ include 'filter_queries.php';
             </div> 
         </div>
 
-        <div class ="filters hide" data-tool-type="milling"  data-filter="Corner Chamfer Corner Radius">
+        <div class ="filters hide" data-tool-type="milling"  data-filter="Corner Radius">
             <label for="milling-radius-select">Radius</label>
             <!-- <select name="milling-radius-select" id="milling-radius-select"></select> -->
             <div class="min-max-row">
@@ -231,14 +225,7 @@ include 'filter_queries.php';
                 </select>
             </div>
 
-            <div class="filter-options hide" data-tool-type="holemaking">
-                <form id="holemaking-sub-form">
-                    <label for="holemaking-sub-categories">Holemaking Sub Type</label>
-                    <select name="holemaking-sub-categories" id="holemaking-sub-categories" class="sub-type-select" data-tool-type="holemaking" >
-                        <?php tool_sub($tool_type); ?> 
-                    </select>
-                </form>
-            </div>
+           
 
             <div class="filters hide" data-tool-type="holemaking">
                 <label for="holemaking-dia">Diameter</label>
@@ -365,17 +352,7 @@ include 'filter_queries.php';
             </select>
         </div>
 
-        <div class="filter-options hide" data-tool-type="threading">
-            
-            <form id="threading-sub-form">
-                <label for="threading-sub-categories">Threading Sub Type</label>
-                <select name="threading-sub-categories" id="threading-sub-categories" class="sub-type-select" data-tool-type="threading" >
-                    <?php tool_sub($tool_type); ?> 
-                </select>
-            </form>
-        
-        </div>
-        
+       
         <div class="filters hide" data-tool-type="threading" data-filter="Hand Tap Spiral Point Spiral Flute Form Thread Mill Die Specialty Gage">
             <label for="threading-measure">Inch or Metric</label>
             <select name="threading-measure" id="threading-measure">
@@ -536,7 +513,7 @@ include 'filter_queries.php';
 
 
 <div id="inserts-filters" class="filter-options hide"  data-tool-type="inserts">
-    <!-- <h2>Show All Inserts</h2> -->
+    
 </div>
 
 
@@ -579,14 +556,7 @@ include 'filter_queries.php';
                 <option value="s2">Ti-Alloy (Ti6Al4V, Ti99.9)</option>  
             </select>
         </div>
-        <div class="filter-options hide"  data-tool-type="specialty">
-            <form id="specialty-sub-form">
-                <label for="specialty-sub-categories">Specialty Sub Type</label>
-                <select name="specialty-sub-categories" id="specialty-sub-categories" class="sub-type-select" data-tool-type="specialty" >
-                    <?php tool_sub($tool_type); ?> 
-                </select>
-            </form>
-        </div>
+        
         <div class="filters hide" data-tool-type="specialty" data-filter="CarbideBlanks">
             <label for="blanks-sub">Blanks Sub Type</label>
             <select name="blanks-sub" id="blanks-sub">
