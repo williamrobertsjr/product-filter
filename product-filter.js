@@ -57,7 +57,6 @@ const dimensionSelect = () => {
         }
       } else {
         for(filter of filters) {
-          // console.log(filter)
           if(selectedToolType !== filter.dataset.toolType) {
             filter.style.display = 'none'
           } 
